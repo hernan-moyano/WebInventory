@@ -50,8 +50,8 @@ namespace WebInventory.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            //todo: ver helper
             ViewBag.Categorys = Helpers.Functions.GetCategorys();
+            ViewBag.Types = Helpers.Functions.GetTipes();
             return View();
         }
 
@@ -65,30 +65,23 @@ namespace WebInventory.Controllers
             if (ModelState.IsValid)
             {
                 var files = HttpContext.Request.Form.Files;
-                foreach (var Image in files)
+                var FileUploadDirectory = Path.Combine(_hostEnvironment.WebRootPath, "uploads\\img\\product");
+                if (files.Count > 0)
                 {
-                    if (Image != null && Image.Length > 0)
+                    var file = files.FirstOrDefault();
+                    if (file.Length > 0)
                     {
+                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
-                        var file = Image;
-                        var uploads = Path.Combine(_hostEnvironment.WebRootPath, "uploads\\img\\product");
-
-                        if (file.Length > 0)
+                        using (var fileStream = new FileStream(Path.Combine(FileUploadDirectory, fileName), FileMode.Create))
                         {
-                            var fileName = ContentDispositionHeaderValue.Parse
-                                (file.ContentDisposition).FileName.Trim('"');
-
-                            //  System.Console.WriteLine(fileName);
-                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                            {
-                                await file.CopyToAsync(fileStream);
-                                product.Image = file.FileName;
-                            }
-
-
+                            await file.CopyToAsync(fileStream);
+                            product.Image = file.FileName;
                         }
                     }
+
                 }
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -164,7 +157,7 @@ namespace WebInventory.Controllers
 
             return View(product);
         }
-
+        //todo: Ver porque no se elimina la imagen de la base de datos
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

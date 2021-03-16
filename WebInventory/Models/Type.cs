@@ -13,7 +13,7 @@ namespace WebInventory.Models
 
         [Required(ErrorMessage = "La Descripcion es requerida")]
         [MaxLength(150, ErrorMessage = "El maximo de caracteres es 150")]
-        [Display(Name = "Descripcion")]
+        [Display(Name = "Descripción")]
         public string Description { get; set; }
     }
 }

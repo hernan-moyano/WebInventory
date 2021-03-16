@@ -46,6 +46,9 @@ namespace WebInventory.Controllers
         // GET: Inventories/Create
         public IActionResult Create()
         {
+            //todo: ver que muestre el nombre del id y no el numero
+            ViewBag.Deposits = Helpers.Functions.GetDeposits();
+            ViewBag.Products = Helpers.Functions.GetProducts();
             return View();
         }
 
