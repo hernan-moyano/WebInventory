@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -48,6 +49,8 @@ namespace WebInventory.Controllers
         }
 
         // GET: Products/Create
+        [Authorize]
+
         public IActionResult Create()
         {
             ViewBag.Categorys = Helpers.Functions.GetCategorys();
@@ -90,6 +93,8 @@ namespace WebInventory.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -141,6 +146,8 @@ namespace WebInventory.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

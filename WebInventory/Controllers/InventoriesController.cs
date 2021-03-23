@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,8 @@ namespace WebInventory.Controllers
         }
 
         // GET: Inventories/Create
+        [Authorize]
+
         public IActionResult Create()
         {
             //todo: ver que muestre el nombre del id y no el numero
@@ -69,6 +72,7 @@ namespace WebInventory.Controllers
         }
 
         // GET: Inventories/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +124,7 @@ namespace WebInventory.Controllers
         }
 
         // GET: Inventories/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

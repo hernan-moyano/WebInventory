@@ -40,10 +40,10 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Id_Deposito)
+                @Html.DisplayFor(modelItem => item.DepositNombre().Branch)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Id_Product)
+                @Html.DisplayFor(modelItem => item.ProdNombre().Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Units)

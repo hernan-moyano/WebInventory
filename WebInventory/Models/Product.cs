@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebInventory.Data;
 
 namespace WebInventory.Models
 {
@@ -39,5 +40,20 @@ namespace WebInventory.Models
 
         [Display(Name = "Imagen")]
         public string Image { get; set; }
+
+
+        public Category CategoryNombre()
+        {
+            var context = new ApplicationDbContext();
+            var nombre = context.Category.Where(td => td.Id_Category == this.Id_Category).FirstOrDefault();
+            return nombre;
+        }
+
+        public Type TypeNombre()
+        {
+            var context = new ApplicationDbContext();
+            var nombre = context.Type.Where(td => td.Id_Type == this.Id_Type).FirstOrDefault();
+            return nombre;
+        }
     }
 }

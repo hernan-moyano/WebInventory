@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebInventory.Data;
 
 namespace WebInventory.Models
 {
@@ -38,5 +39,18 @@ namespace WebInventory.Models
             }
                 
             }
+        
+        public Product ProdNombre() {  
+            var context = new ApplicationDbContext();
+            var nombre = context.Product.Where(tp => tp.Id_Product == this.Id_Product).FirstOrDefault();
+            return nombre;
+             }
+
+        public Deposit DepositNombre()
+        {
+            var context = new ApplicationDbContext();
+            var nombre = context.Deposit.Where(td => td.Id_Deposito == this.Id_Deposito).FirstOrDefault();
+            return nombre;
+        }
     }
 }
