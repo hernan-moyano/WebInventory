@@ -91,6 +91,14 @@ namespace WebInventory.Controllers
             }
             return View(product);
         }
+        #region  Borrar Archivo
+        private void DeleteFile(string imgName)
+        {
+            var uploads = Path.Combine(_hostEnvironment.WebRootPath, "uploads\\img\\product");
+            var fileName = imgName;
+        System.IO.File.Delete(Path.Combine(uploads, fileName));
+        }
+        #endregion
 
         // GET: Products/Edit/5
         [Authorize]
@@ -164,7 +172,6 @@ namespace WebInventory.Controllers
 
             return View(product);
         }
-        //todo: Ver porque no se elimina la imagen de la base de datos
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -173,6 +180,7 @@ namespace WebInventory.Controllers
             var product = await _context.Product.FindAsync(id);
             _context.Product.Remove(product);
             await _context.SaveChangesAsync();
+            DeleteFile(product.Image);
             return RedirectToAction(nameof(Index));
         }
 

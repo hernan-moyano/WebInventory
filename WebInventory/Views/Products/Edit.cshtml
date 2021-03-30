@@ -7,53 +7,76 @@
 <h1>Editar Producto</h1>
 
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id_Product" />
-            <div class="form-group">
-                <label asp-for="Alias" class="control-label"></label>
-                <input asp-for="Alias" class="form-control" />
-                <span asp-validation-for="Alias" class="text-danger"></span>
+<div class="card">
+    <div class="card-body bg-light">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <img id="ImageView" src="@("~/uploads/img/product/"+Model.Image)" asp-append-version="true" width="250px" height="250px" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" type="file" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id_Product" />
+                            <div class="form-group">
+                                <label asp-for="Alias" class="control-label"></label>
+                                <input asp-for="Alias" class="form-control" />
+                                <span asp-validation-for="Alias" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Id_Category" class="control-label"></label>
+                                <input asp-for="Id_Category" class="form-control" />
+                                <span asp-validation-for="Id_Category" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Id_Type" class="control-label"></label>
+                                <input asp-for="Id_Type" class="form-control" />
+                                <span asp-validation-for="Id_Type" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Brand" class="control-label"></label>
+                                <input asp-for="Brand" class="form-control" />
+                                <span asp-validation-for="Brand" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Guardar" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div>
+                    <a asp-action="Index">Volver a la lista</a>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Id_Category" class="control-label"></label>
-                <input asp-for="Id_Category" class="form-control" />
-                <span asp-validation-for="Id_Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Id_Type" class="control-label"></label>
-                <input asp-for="Id_Type" class="form-control" />
-                <span asp-validation-for="Id_Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Brand" class="control-label"></label>
-                <input asp-for="Brand" class="form-control" />
-                <span asp-validation-for="Brand" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" type="file" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Volver a la lista</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    <script>
+        $('#i_file').change(function (event) {
+            var tmppath = URL.createObjectURL(event.target.files[0]);
+            $("#ImageView").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+
+            $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>[" + tmppath + "]</strong>");
+        });
+    </script>

@@ -9,57 +9,61 @@
 <p>
     <a asp-action="Create">Crear nuevo</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id_Deposito)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id_Product)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Units)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Unit_Cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total_Cost)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepositNombre().Branch)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProdNombre().Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Units)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit_Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total_Cost)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id_Inventory">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id_Inventory">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id_Inventory">Borrar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container-sm rounded bg-light">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id_Deposito)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id_Product)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Units)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Unit_Cost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total_Cost)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositNombre().Branch)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdNombre().Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Units)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit_Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total_Cost)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id_Inventory">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id_Inventory">Detalles</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id_Inventory">Borrar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

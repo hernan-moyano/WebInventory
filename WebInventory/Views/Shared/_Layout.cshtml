@@ -21,18 +21,17 @@
 
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Inventories" asp-action="Index">Inventario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Producto</a>
+                            <select id="config" class="browser-default custom-select bg-warning">
+                                <option value="" disabled selected>menú</option>
+                                <option value="1">Inventarios</option>
+                                <option value="2">Productos</option>
+                                <option value="3">Depósitos</option>
+                                <option value="4">Categorias</option>
+                                <option value="5">Tipos de Operaciones</option>
+                            </select>
                         </li>
                     </ul>
-
                 </div>
-
             </div>
         </nav>
     </header>
@@ -50,6 +49,29 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $("#config").change(function () {
+            var seleccion = $("#config").val();
+            switch (seleccion) {
+                case "1":
+                    window.location = "/Inventories/Index";
+                    break;
+                case "2":
+                    window.location = "/Products/Index";
+                    break;
+                case "3":
+                    window.location = "/Deposits/Index";
+                    break;
+                case "4":
+                    window.location = "/Categories/Index";
+                    break;
+                case "5":
+                    window.location = "/Types/Index";
+                    break;
+                default:
+            }
+        })
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
