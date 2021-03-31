@@ -20,13 +20,13 @@
                     @Html.DisplayNameFor(model => model.Id_Deposito)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Id_Deposito)
+                    @Html.DisplayFor(model => model.DepositNombre().Branch)
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.Id_Product)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Id_Product)
+                    @Html.DisplayFor(model => model.ProdNombre().Description)
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.Units)

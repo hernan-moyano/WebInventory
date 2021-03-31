@@ -19,23 +19,26 @@
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.Alias)
                         </dd>
+                        <hr />
                         <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.Description)
                         </dt>
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.Description)
                         </dd>
+
                         <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.Id_Category)
                         </dt>
                         <dd class="col-sm-10">
-                            @Html.DisplayFor(model => model.Id_Category)
+                            @Html.DisplayFor(model => model.CategoryNombre().Description)
                         </dd>
                         <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.Id_Type)
                         </dt>
+                        <!--Para acceder al nombre del Id_Type usar el metodo del nombre y lo que se desea devolver-->
                         <dd class="col-sm-10">
-                            @Html.DisplayFor(model => model.Id_Type)
+                            @Html.DisplayFor(model => model.TypeNombre().Description)
                         </dd>
                         <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.Brand)

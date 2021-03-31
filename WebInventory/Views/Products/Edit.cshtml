@@ -14,11 +14,6 @@
                 <div class="form-group">
                     <img id="ImageView" src="@("~/uploads/img/product/"+Model.Image)" asp-append-version="true" width="250px" height="250px" />
                 </div>
-                <div class="form-group">
-                    <label asp-for="Image" class="control-label"></label>
-                    <input asp-for="Image" class="form-control" type="file" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div>
             </div>
             <div class="col-md-8">
                 <div class="row">
@@ -38,18 +33,28 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Id_Category" class="control-label"></label>
-                                <input asp-for="Id_Category" class="form-control" />
+                                <select asp-for="Id_Category" asp-items="ViewBag.Categorys" class="form-control"></select>
                                 <span asp-validation-for="Id_Category" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Id_Type" class="control-label"></label>
-                                <input asp-for="Id_Type" class="form-control" />
+                                <select asp-for="Id_Type" asp-items="ViewBag.Types" class="form-control"></select>
                                 <span asp-validation-for="Id_Type" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Brand" class="control-label"></label>
                                 <input asp-for="Brand" class="form-control" />
                                 <span asp-validation-for="Brand" class="text-danger"></span>
+                            </div>
+                           
+                            <div class="form-group">
+                                <!--
+
+                                <label asp-for="Image" class="control-label"></label>
+                                <input class="form-control" type="file" />
+                                 -->
+                                <input asp-for="Image" hidden />
+                                <span asp-validation-for="Image" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
@@ -69,14 +74,14 @@
 
 
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <script>
         $('#i_file').change(function (event) {
             var tmppath = URL.createObjectURL(event.target.files[0]);
             $("#ImageView").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
-
-            $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>[" + tmppath + "]</strong>");
-        });
+            $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar)< strong > [" + tmppath + "]</strong > ");                
+            });
     </script>
+}

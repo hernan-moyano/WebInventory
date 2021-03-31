@@ -30,7 +30,7 @@ namespace WebInventory.Models
         [Display(Name = "Costo Unitario")]
         [Required(ErrorMessage = "Es necesario cargar el costo unitario")]
         public decimal Unit_Cost { get; set; }
-//todo: revisar calculos en decimal
+
         [Display(Name = "Costo Total")]
         public decimal Total_Cost {
             get

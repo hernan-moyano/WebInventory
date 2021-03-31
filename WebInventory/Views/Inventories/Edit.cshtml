@@ -20,12 +20,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Id_Deposito" class="control-label"></label>
-                <input asp-for="Id_Deposito" class="form-control" />
+                <select asp-for="Id_Deposito" asp-items="ViewBag.Deposits" class="form-control"></select>
                 <span asp-validation-for="Id_Deposito" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Id_Product" class="control-label"></label>
-                <input asp-for="Id_Product" class="form-control" />
+                <select asp-for="Id_Product" asp-items="ViewBag.Products" class="form-control"></select>
                 <span asp-validation-for="Id_Product" class="text-danger"></span>
             </div>
             <div class="form-group">

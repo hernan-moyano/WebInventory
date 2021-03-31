@@ -82,15 +82,16 @@ namespace WebInventory.Controllers
                             product.Image = file.FileName;
                         }
                     }
-
                 }
-
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
         }
+
+
+
         #region  Borrar Archivo
         private void DeleteFile(string imgName)
         {
@@ -105,6 +106,9 @@ namespace WebInventory.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Categorys = Helpers.Functions.GetCategorys();
+            ViewBag.Types = Helpers.Functions.GetTipes();          
+
             if (id == null)
             {
                 return NotFound();
@@ -135,7 +139,7 @@ namespace WebInventory.Controllers
                 try
                 {
                     _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -153,8 +157,10 @@ namespace WebInventory.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
-        [Authorize]
+
+
+// GET: Products/Delete/5
+[Authorize]
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -186,7 +192,8 @@ namespace WebInventory.Controllers
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.Id_Product == id);
+            return _context.Product.Any(e => e.Id_Product == id);            
         }
     }
 }
+
