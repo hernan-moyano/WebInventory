@@ -67,22 +67,7 @@ namespace WebInventory.Controllers
         {
             if (ModelState.IsValid)
             {
-                var files = HttpContext.Request.Form.Files;
-                var FileUploadDirectory = Path.Combine(_hostEnvironment.WebRootPath, "uploads\\img\\product");
-                if (files.Count > 0)
-                {
-                    var file = files.FirstOrDefault();
-                    if (file.Length > 0)
-                    {
-                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-
-                        using (var fileStream = new FileStream(Path.Combine(FileUploadDirectory, fileName), FileMode.Create))
-                        {
-                            await file.CopyToAsync(fileStream);
-                            product.Image = file.FileName;
-                        }
-                    }
-                }
+               product.Image = await UploadImage();
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -90,6 +75,24 @@ namespace WebInventory.Controllers
             return View(product);
         }
 
+        public async Task<string> UploadImage()
+        {
+            var ret = "";
+            var files = HttpContext.Request.Form.Files;
+            var FileUploadDirectory = Path.Combine(_hostEnvironment.WebRootPath, "uploads\\img\\product");
+            if (files.Count > 0)
+            {
+                var file = files.FirstOrDefault();
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    using var fileStream = new FileStream(Path.Combine(FileUploadDirectory, fileName), FileMode.Create);
+                    await file.CopyToAsync(fileStream);
+                    ret = file.FileName;
+                }
+            }
+            return ret;
+        }
 
 
         #region  Borrar Archivo
@@ -97,7 +100,19 @@ namespace WebInventory.Controllers
         {
             var uploads = Path.Combine(_hostEnvironment.WebRootPath, "uploads\\img\\product");
             var fileName = imgName;
-        System.IO.File.Delete(Path.Combine(uploads, fileName));
+            if (imgName != "")
+            {
+                try
+                {
+                    System.IO.File.Delete(Path.Combine(uploads, fileName));
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }                
+            }         
+
         }
         #endregion
 
@@ -107,7 +122,7 @@ namespace WebInventory.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.Categorys = Helpers.Functions.GetCategorys();
-            ViewBag.Types = Helpers.Functions.GetTipes();          
+            ViewBag.Types = Helpers.Functions.GetTipes();
 
             if (id == null)
             {
@@ -133,13 +148,14 @@ namespace WebInventory.Controllers
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();                    
+                    _context.Update(product);                             
+                    await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -159,8 +175,8 @@ namespace WebInventory.Controllers
 
 
 
-// GET: Products/Delete/5
-[Authorize]
+        // GET: Products/Delete/5
+        [Authorize]
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -192,7 +208,7 @@ namespace WebInventory.Controllers
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.Id_Product == id);            
+            return _context.Product.Any(e => e.Id_Product == id);
         }
     }
 }
